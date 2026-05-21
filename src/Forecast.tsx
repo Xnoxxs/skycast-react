@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { ScrollView, StyleSheet, Text, View } from "react-native"
 
 import Card from "./Card"
+import { type ForecastDay, fetchForecast } from "./services/weatherApi"
 
 const Forecast: React.FC<{
   location: {
@@ -10,41 +11,29 @@ const Forecast: React.FC<{
     longitude: number
   }
 }> = ({ location }) => {
-  const [data, setData] = useState<
-    Array<{
-      day: string
-      temperatureMax: number
-      temperatureMin: number
-      condition: number
-    }>
-  >()
+  const [data, setData] = useState<ForecastDay[]>()
 
   useEffect(() => {
+    let cancelled = false
+
     void (async () => {
-      const response = await fetch(
-        `https://api.open-meteo.com/v1/forecast?latitude=${location.latitude}&longitude=${location.longitude}&daily=temperature_2m_max,temperature_2m_min,weather_code`,
-      )
-      const data = (await response.json()) as {
-        daily: {
-          time: string[]
-          temperature_2m_max: number[]
-          temperature_2m_min: number[]
-          weather_code: number[]
+      try {
+        const result = await fetchForecast(location)
+
+        if (!cancelled && result) {
+          setData(result)
+        }
+      } catch (error) {
+        console.error("Failed to load forecast:", error)
+        if (!cancelled) {
+          setData(undefined)
         }
       }
-
-      const forecast = []
-      for (let i = 0; i < data.daily.time.length; i++) {
-        forecast.push({
-          day: data.daily.time[i],
-          temperatureMax: data.daily.temperature_2m_max[i],
-          temperatureMin: data.daily.temperature_2m_min[i],
-          condition: data.daily.weather_code[i],
-        })
-      }
-
-      setData(forecast)
     })()
+
+    return () => {
+      cancelled = true
+    }
   }, [location])
 
   return (
