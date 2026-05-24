@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react"
 import { ScrollView, StyleSheet, Text, View } from "react-native"
 
-import Card from "./Card"
-import { type ForecastDay, fetchForecast } from "./services/weatherApi"
+import Card from "#shared/ui/Card"
+
+import {
+  type ForecastDay,
+  fetchForecast,
+} from "#features/home/services/weatherApi"
 
 const Forecast: React.FC<{
   location: {

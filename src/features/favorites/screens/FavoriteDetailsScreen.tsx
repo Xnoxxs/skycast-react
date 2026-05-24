@@ -2,7 +2,7 @@ import { Button, StyleSheet, Text, View } from "react-native"
 
 import type { NativeStackScreenProps } from "@react-navigation/native-stack"
 
-import type { FavoritesStackParamList } from "../navigation/types"
+import type { FavoritesStackParamList } from "#shared/types/navigation"
 
 // Typed props: this screen lives inside the FavoritesStackNavigator
 type Props = NativeStackScreenProps<FavoritesStackParamList, "FavoriteDetails">

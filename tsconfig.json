@@ -1,6 +1,14 @@
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
-    "strict": true
+    "strict": true,
+    // baseUrl is required when using paths
+    "baseUrl": ".",
+    "paths": {
+      // Path aliases — use #prefix to avoid clashing with node_modules
+      "#app/*": ["src/app/*"],
+      "#shared/*": ["src/shared/*"],
+      "#features/*": ["src/features/*"]
+    }
   }
 }

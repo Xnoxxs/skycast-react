@@ -3,10 +3,10 @@
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 
-import FavoriteDetailsScreen from "../screens/FavoriteDetailsScreen"
-import FavoritesScreen from "../screens/FavoritesScreen"
+import type { FavoritesStackParamList } from "#shared/types/navigation"
 
-import type { FavoritesStackParamList } from "./types"
+import FavoriteDetailsScreen from "#features/favorites/screens/FavoriteDetailsScreen"
+import FavoritesScreen from "#features/favorites/screens/FavoritesScreen"
 
 const Stack = createNativeStackNavigator<FavoritesStackParamList>()
 

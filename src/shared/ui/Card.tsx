@@ -1,12 +1,12 @@
 import { Platform, StyleSheet, View } from "react-native"
 
-const CurrentWeather: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
+// Generic card container used across features.
+// Applies a white rounded surface with a platform-native shadow.
+const Card: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return <View style={styles.container}>{children}</View>
 }
 
-export default CurrentWeather
+export default Card
 
 const styles = StyleSheet.create({
   container: {

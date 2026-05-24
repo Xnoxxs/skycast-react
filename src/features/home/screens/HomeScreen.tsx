@@ -1,17 +1,17 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native"
+import { ScrollView, StyleSheet, Text } from "react-native"
 
-import CurrentWeather from "../CurrentWeather"
-import Forecast from "../Forecast"
+import { BARCELONA } from "#shared/constants/locations"
 
-const location = { name: "Barcelona", latitude: 41.385063, longitude: 2.173404 }
+import CurrentWeather from "#features/home/components/CurrentWeather"
+import Forecast from "#features/home/components/Forecast"
 
 const HomeScreen: React.FC = () => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>Weather App</Text>
 
-      <CurrentWeather location={location} />
-      <Forecast location={location} />
+      <CurrentWeather location={BARCELONA} />
+      <Forecast location={BARCELONA} />
     </ScrollView>
   )
 }

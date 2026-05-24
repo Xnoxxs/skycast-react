@@ -1,15 +1,14 @@
-import { NavigationContainer } from "@react-navigation/native"
 import { StatusBar } from "expo-status-bar"
 
-import RootStackNavigator from "./navigation/RootStackNavigator"
+import AppProviders from "#app/providers/AppProviders"
+import RootStackNavigator from "#app/navigation/RootStackNavigator"
 
 const App: React.FC = () => {
   return (
-    // NavigationContainer manages the navigation tree and holds navigation state
-    <NavigationContainer>
+    <AppProviders>
       <RootStackNavigator />
       <StatusBar style="auto" />
-    </NavigationContainer>
+    </AppProviders>
   )
 }
 

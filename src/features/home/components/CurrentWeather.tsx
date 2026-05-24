@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react"
 import { StyleSheet, Text, View } from "react-native"
 
-import Card from "./Card"
+import Card from "#shared/ui/Card"
+
 import {
   type CurrentWeatherData,
   fetchCurrentWeather,
-} from "./services/weatherApi"
+} from "#features/home/services/weatherApi"
 
 const CurrentWeather: React.FC<{
   location: {

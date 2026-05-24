@@ -2,7 +2,7 @@ import { Button, StyleSheet, Text, View } from "react-native"
 
 import type { DrawerScreenProps } from "@react-navigation/drawer"
 
-import type { SettingsDrawerParamList } from "../navigation/types"
+import type { SettingsDrawerParamList } from "#shared/types/navigation"
 
 // Typed props: this screen lives inside the SettingsDrawerNavigator
 type Props = DrawerScreenProps<SettingsDrawerParamList, "SettingsHome">
