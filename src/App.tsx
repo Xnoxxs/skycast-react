@@ -1,31 +1,16 @@
+import { NavigationContainer } from "@react-navigation/native"
 import { StatusBar } from "expo-status-bar"
-import { StyleSheet, Text, View } from "react-native"
 
-import CurrentWeather from "./CurrentWeather"
-import Forecast from "./Forecast"
-
-const location = { name: "Barcelona", latitude: 41.385063, longitude: 2.173404 }
+import RootStackNavigator from "./navigation/RootStackNavigator"
 
 const App: React.FC = () => {
   return (
-    <View style={styles.container}>
-      <Text>Weather App</Text>
-
-      <CurrentWeather location={location} />
-      <Forecast location={location} />
-
+    // NavigationContainer manages the navigation tree and holds navigation state
+    <NavigationContainer>
+      <RootStackNavigator />
       <StatusBar style="auto" />
-    </View>
+    </NavigationContainer>
   )
 }
 
 export default App
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-})
