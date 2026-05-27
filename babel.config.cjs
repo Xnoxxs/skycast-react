@@ -16,6 +16,7 @@ module.exports = function (api) {
             "#app": "./src/app",
             "#shared": "./src/shared",
             "#features": "./src/features",
+            "#design-system": "./src/design-system",
           },
         },
       ],

@@ -8,7 +8,9 @@
       // Path aliases — use #prefix to avoid clashing with node_modules
       "#app/*": ["src/app/*"],
       "#shared/*": ["src/shared/*"],
-      "#features/*": ["src/features/*"]
+      "#features/*": ["src/features/*"],
+      "#design-system": ["src/design-system/index.ts"],
+      "#design-system/*": ["src/design-system/*"]
     }
   }
 }

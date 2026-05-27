@@ -1,43 +1,32 @@
-import { Button, StyleSheet, Text, View } from "react-native"
+import  { type NativeStackScreenProps } from "@react-navigation/native-stack"
 
-import type { NativeStackScreenProps } from "@react-navigation/native-stack"
+import { StyleSheet } from "react-native"
 
-import type { FavoritesStackParamList } from "#shared/types/navigation"
+import { Button, ScreenContainer, Typography, colors, spacing, typography } from "#design-system"
 
-// Typed props: this screen lives inside the FavoritesStackNavigator
+import  { type FavoritesStackParamList } from "#shared/types/navigation"
+
 type Props = NativeStackScreenProps<FavoritesStackParamList, "FavoriteDetails">
 
 const FavoriteDetailsScreen: React.FC<Props> = ({ route, navigation }) => {
-  // route.params.id is fully typed thanks to FavoritesStackParamList
   const { id } = route.params
-
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Favorite Details</Text>
-      <Text style={styles.id}>Item ID: {id}</Text>
-
-      {/* Go back to the FavoritesList screen */}
+    <ScreenContainer>
+      <Typography variant="heading">Favorite Details</Typography>
+      <Typography variant="body" style={styles.id}>
+        Item ID: {id}
+      </Typography>
       <Button title="Go Back" onPress={() => navigation.goBack()} />
-    </View>
+    </ScreenContainer>
   )
 }
 
 export default FavoriteDetailsScreen
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 16,
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: "bold",
-  },
   id: {
-    fontSize: 18,
-    color: "#444",
-    marginBottom: 8,
+    ...typography.temperatureMax,     // fontSize: 18 — same as original
+    color: colors.text.faint,         // was: "#444"
+    marginBottom: spacing.sm,         // was: 8
   },
 })

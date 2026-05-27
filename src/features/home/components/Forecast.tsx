@@ -1,40 +1,28 @@
 import { useEffect, useState } from "react"
 import { ScrollView, StyleSheet, Text, View } from "react-native"
 
+import { colors, spacing, typography } from "#design-system"
+
+import { type ForecastDay, fetchForecast } from "#features/home/services/weatherApi"
 import Card from "#shared/ui/Card"
 
-import {
-  type ForecastDay,
-  fetchForecast,
-} from "#features/home/services/weatherApi"
 
 const Forecast: React.FC<{
-  location: {
-    name: string
-    latitude: number
-    longitude: number
-  }
+  location: { name: string; latitude: number; longitude: number }
 }> = ({ location }) => {
   const [data, setData] = useState<ForecastDay[]>()
 
   useEffect(() => {
     let cancelled = false
-
     void (async () => {
       try {
         const result = await fetchForecast(location)
-
-        if (!cancelled && result) {
-          setData(result)
-        }
+        if (!cancelled && result) setData(result)
       } catch (error) {
         console.error("Failed to load forecast:", error)
-        if (!cancelled) {
-          setData(undefined)
-        }
+        if (!cancelled) setData(undefined)
       }
     })()
-
     return () => {
       cancelled = true
     }
@@ -58,9 +46,12 @@ const Forecast: React.FC<{
 export default Forecast
 
 const styles = StyleSheet.create({
-  temperatureMax: { fontSize: 18 },
-  temperatureMin: { fontSize: 14, color: "#888" },
-  condition: { fontWeight: "bold" },
+  temperatureMax: typography.temperatureMax,                              // was: { fontSize: 18 }
+  temperatureMin: {
+    ...typography.temperatureMin,                                         // was: { fontSize: 14 }
+    color: colors.text.muted,                                             // was: "#888"
+  },
+  condition: typography.condition,                                        // was: { fontWeight: "bold" }
   days: { flexGrow: 0, flexDirection: "row" },
-  day: { flex: 1, alignItems: "center", marginHorizontal: 16 },
+  day: { flex: 1, alignItems: "center", marginHorizontal: spacing.lg },  // was: 16
 })
