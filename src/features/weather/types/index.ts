@@ -1,0 +1,7 @@
+// A city returned from the geocoding API.
+// Holds everything needed to display weather: name + coordinates.
+export type SearchedCity = {
+  name: string
+  latitude: number
+  longitude: number
+}
