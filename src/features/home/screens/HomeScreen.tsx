@@ -1,10 +1,11 @@
-import { ActivityIndicator, ScrollView, StyleSheet, Text, TextInput, View } from "react-native"
+import { ActivityIndicator, ScrollView, StyleSheet, Text } from "react-native"
 
-import { Button, Typography, colors, spacing, typography } from "#design-system"
+import { Typography, colors, spacing, typography } from "#design-system"
 
 import CurrentWeather from "#features/home/components/CurrentWeather"
 import Forecast from "#features/home/components/Forecast"
 import { useWeatherSearch } from "#features/weather/hooks/useWeatherSearch"
+import CitySearchBar from "#shared/ui/CitySearchBar"
 
 const HomeScreen: React.FC = () => {
   // useWeatherSearch manages city input, location state, loading, errors, and persistence
@@ -17,20 +18,12 @@ const HomeScreen: React.FC = () => {
         Weather App
       </Typography>
 
-      {/* City search bar */}
-      <View style={styles.searchRow}>
-        <TextInput
-          style={styles.input}
-          placeholder="Enter city name..."
-          placeholderTextColor={colors.text.muted}
-          value={cityInput}
-          onChangeText={setCityInput}
-          // Allow the user to submit with the keyboard's search/go key
-          onSubmitEditing={() => void searchCity(cityInput)}
-          returnKeyType="search"
-        />
-        <Button title="Search" onPress={() => void searchCity(cityInput)} />
-      </View>
+      {/* City search bar — extracted into a shared component for reuse and testability */}
+      <CitySearchBar
+        value={cityInput}
+        onChangeText={setCityInput}
+        onSearch={searchCity}
+      />
 
       {/* Loading indicator — shown while restoring last city or geocoding a new one */}
       {isLoading && (
@@ -65,23 +58,6 @@ const styles = StyleSheet.create({
   },
   title: {
     marginBottom: spacing.lg,                  // was: 16
-  },
-  searchRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: spacing.lg,
-    paddingHorizontal: spacing.lg,
-    gap: spacing.sm,
-  },
-  input: {
-    flex: 1,
-    borderWidth: 1,
-    borderColor: colors.text.muted,
-    borderRadius: 6,
-    paddingHorizontal: spacing.md,
-    paddingVertical: spacing.sm,
-    ...typography.body,
-    color: colors.text.primary,
   },
   loading: {
     marginVertical: spacing.xl,

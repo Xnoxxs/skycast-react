@@ -5,12 +5,26 @@
   "type": "module",
   "main": "src/index.ts",
   "scripts": {
+    "test": "jest",
     "lint": "npm run lint-typecheck && npm run lint-eslint && npm run lint-prettier && npm run lint-knip",
     "lint-typecheck": "tsc --noEmit",
     "lint-eslint": "eslint .",
     "lint-prettier": "prettier --check .",
     "lint-knip": "knip",
     "start": "expo start"
+  },
+  "jest": {
+    "preset": "jest-expo",
+    "setupFilesAfterEnv": [
+      "<rootDir>/src/test-setup.ts"
+    ],
+    "moduleNameMapper": {
+      "^#app/(.*)$": "<rootDir>/src/app/$1",
+      "^#shared/(.*)$": "<rootDir>/src/shared/$1",
+      "^#features/(.*)$": "<rootDir>/src/features/$1",
+      "^#design-system$": "<rootDir>/src/design-system/index.ts",
+      "^#design-system/(.*)$": "<rootDir>/src/design-system/$1"
+    }
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^2.2.0",
@@ -31,9 +45,13 @@
   },
   "devDependencies": {
     "@christopherjbaker/eslint-config": "^3.1.4",
+    "@testing-library/react-native": "^13.3.3",
+    "@types/jest": "^30.0.0",
     "@types/react": "~19.1.0",
     "eslint": "^9.39.4",
     "eslint-config-expo": "~10.0.0",
+    "jest": "^29.7.0",
+    "jest-expo": "~54.0.0",
     "knip": "^6.14.1",
     "prettier": "^3.8.3",
     "typescript": "~5.9.2"
