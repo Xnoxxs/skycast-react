@@ -27,3 +27,37 @@ export async function setLastCity(city: string): Promise<void> {
     console.error("Failed to save last city:", error)
   }
 }
+
+// The key used to store the recent searches array in AsyncStorage.
+const RECENT_SEARCHES_KEY = "recentSearches"
+
+// Reads the recent searches array from AsyncStorage.
+// Returns an empty array if nothing has been saved yet, or if reading fails.
+export async function getRecentSearches(): Promise<string[]> {
+  try {
+    const json = await AsyncStorage.getItem(RECENT_SEARCHES_KEY)
+
+    if (json === null) {
+      // Nothing saved yet — first time the user opens the app
+      return []
+    }
+
+    // Safely parse the JSON string back into an array
+    return JSON.parse(json) as string[]
+  } catch (error) {
+    console.error("Failed to load recent searches:", error)
+    return []
+  }
+}
+
+// Saves the full recent searches array to AsyncStorage.
+// Called whenever the list changes (new search added).
+export async function saveRecentSearches(searches: string[]): Promise<void> {
+  try {
+    // Convert the array to a JSON string before storing
+    const json = JSON.stringify(searches)
+    await AsyncStorage.setItem(RECENT_SEARCHES_KEY, json)
+  } catch (error) {
+    console.error("Failed to save recent searches:", error)
+  }
+}

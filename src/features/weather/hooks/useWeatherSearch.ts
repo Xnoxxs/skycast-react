@@ -61,12 +61,13 @@ export function useWeatherSearch() {
   // --- Search a city ---
   // Geocodes the city name, updates the location, and persists the name to storage.
   // Sets an error message if the city is not found or the network request fails.
-  const searchCity = useCallback(async (name: string) => {
+  // Returns true if the search succeeded so callers can react (e.g. update recent searches).
+  const searchCity = useCallback(async (name: string): Promise<boolean> => {
     const trimmed = name.trim()
 
     if (trimmed === "") {
       setError("Please enter a city name.")
-      return
+      return false
     }
 
     setIsLoading(true)
@@ -78,11 +79,13 @@ export function useWeatherSearch() {
       // --- Save on change ---
       setLocation(result)
       await setLastCity(trimmed)
+      setIsLoading(false)
+      return true
     } else {
       setError(`City "${trimmed}" not found. Please check the name and try again.`)
+      setIsLoading(false)
+      return false
     }
-
-    setIsLoading(false)
   }, [])
 
   return {
