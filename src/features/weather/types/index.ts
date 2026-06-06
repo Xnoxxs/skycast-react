@@ -5,3 +5,8 @@ export type SearchedCity = {
   latitude: number
   longitude: number
 }
+
+export type WeatherRecommendation = {
+  id: string
+  message: string
+}
