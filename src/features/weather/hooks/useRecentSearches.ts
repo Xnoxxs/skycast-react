@@ -17,7 +17,13 @@ import {
 // Maximum number of recent searches to keep in the list.
 const MAX_RECENT_SEARCHES = 10
 
-export function useRecentSearches() {
+type UseRecentSearchesResult = {
+  recentSearches: string[]
+  isLoadingRecent: boolean
+  addRecentSearch: (cityName: string) => Promise<void>
+}
+
+export function useRecentSearches(): UseRecentSearchesResult {
   // The ordered list of recently searched city names (most recent first)
   const [recentSearches, setRecentSearches] = useState<string[]>([])
 

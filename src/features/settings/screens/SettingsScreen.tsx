@@ -1,10 +1,10 @@
-import  { type DrawerScreenProps } from "@react-navigation/drawer"
+import { type DrawerScreenProps } from "@react-navigation/drawer"
 
 import { StyleSheet, View } from "react-native"
 
 import { Button, ScreenContainer, Typography, spacing } from "#design-system"
 
-import  { type SettingsDrawerParamList } from "#shared/types/navigation"
+import { type SettingsDrawerParamList } from "#shared/types/navigation"
 
 type Props = DrawerScreenProps<SettingsDrawerParamList, "SettingsHome">
 
@@ -17,7 +17,10 @@ const SettingsScreen: React.FC<Props> = ({ navigation }) => {
       </Typography>
       <Button title="Open Drawer" onPress={() => navigation.openDrawer()} />
       <View style={styles.spacer} />
-      <Button title="Go to Profile" onPress={() => navigation.navigate("Profile")} />
+      <Button
+        title="Go to Profile"
+        onPress={() => navigation.navigate("Profile")}
+      />
     </ScreenContainer>
   )
 }

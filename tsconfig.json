@@ -2,15 +2,19 @@
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
     "strict": true,
-    // baseUrl is required when using paths
-    "baseUrl": ".",
+    // Jest's ambient globals (it/expect/jest) aren't auto-included under
+    // moduleResolution "bundler", so declare them explicitly. Other @types
+    // (react, node) still load via module imports.
+    "types": ["jest"],
     "paths": {
-      // Path aliases — use #prefix to avoid clashing with node_modules
-      "#app/*": ["src/app/*"],
-      "#shared/*": ["src/shared/*"],
-      "#features/*": ["src/features/*"],
-      "#design-system": ["src/design-system/index.ts"],
-      "#design-system/*": ["src/design-system/*"]
+      // Path aliases — use #prefix to avoid clashing with node_modules.
+      // Resolved relative to this tsconfig's directory (project root) now that
+      // baseUrl is removed (deprecated and removed in TypeScript 7).
+      "#app/*": ["./src/app/*"],
+      "#shared/*": ["./src/shared/*"],
+      "#features/*": ["./src/features/*"],
+      "#design-system": ["./src/design-system/index.ts"],
+      "#design-system/*": ["./src/design-system/*"]
     }
   }
 }

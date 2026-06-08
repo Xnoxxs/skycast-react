@@ -2,7 +2,7 @@
 // Each navigator gets its own ParamList so TypeScript
 // can enforce correct screen names and params everywhere.
 
-import type { NavigatorScreenParams } from "@react-navigation/native"
+import { type NavigatorScreenParams } from "@react-navigation/native"
 
 // ----- Favorites nested Stack -----
 export type FavoritesStackParamList = {

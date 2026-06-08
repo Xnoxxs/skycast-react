@@ -1,10 +1,10 @@
-import  { type DrawerScreenProps } from "@react-navigation/drawer"
+import { type DrawerScreenProps } from "@react-navigation/drawer"
 
 import { StyleSheet, View } from "react-native"
 
 import { Button, ScreenContainer, Typography, spacing } from "#design-system"
 
-import  { type SettingsDrawerParamList } from "#shared/types/navigation"
+import { type SettingsDrawerParamList } from "#shared/types/navigation"
 
 type Props = DrawerScreenProps<SettingsDrawerParamList, "Profile">
 

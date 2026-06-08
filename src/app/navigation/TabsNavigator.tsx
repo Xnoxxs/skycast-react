@@ -3,11 +3,10 @@
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 
-import type { TabsParamList } from "#shared/types/navigation"
-
 import FavoritesStackNavigator from "#features/favorites/navigation/FavoritesStackNavigator"
 import HomeScreen from "#features/home/screens/HomeScreen"
 import SettingsDrawerNavigator from "#features/settings/navigation/SettingsDrawerNavigator"
+import { type TabsParamList } from "#shared/types/navigation"
 
 const Tabs = createBottomTabNavigator<TabsParamList>()
 

@@ -8,13 +8,22 @@
 
 import { useCallback, useEffect, useState } from "react"
 
-import type { Favorite } from "#features/favorites/types"
 import {
   getFavorites,
   saveFavorites,
 } from "#features/favorites/storage/favoritesStorage"
+import { type Favorite } from "#features/favorites/types"
 
-export function useFavorites() {
+type UseFavoritesResult = {
+  favorites: Favorite[]
+  isLoading: boolean
+  addFavorite: (favorite: Favorite) => Promise<void>
+  removeFavorite: (id: string) => Promise<void>
+  toggleFavorite: (favorite: Favorite) => Promise<void>
+  isFavorite: (id: string) => boolean
+}
+
+export function useFavorites(): UseFavoritesResult {
   const [favorites, setFavorites] = useState<Favorite[]>([])
 
   // True while the initial load from storage is in progress.

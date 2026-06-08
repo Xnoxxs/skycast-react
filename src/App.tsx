@@ -1,7 +1,7 @@
 import { StatusBar } from "expo-status-bar"
 
-import AppProviders from "#app/providers/AppProviders"
 import RootStackNavigator from "#app/navigation/RootStackNavigator"
+import AppProviders from "#app/providers/AppProviders"
 
 const App: React.FC = () => {
   return (

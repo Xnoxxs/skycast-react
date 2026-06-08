@@ -3,10 +3,9 @@
 
 import { createDrawerNavigator } from "@react-navigation/drawer"
 
-import type { SettingsDrawerParamList } from "#shared/types/navigation"
-
 import ProfileScreen from "#features/settings/screens/ProfileScreen"
 import SettingsScreen from "#features/settings/screens/SettingsScreen"
+import { type SettingsDrawerParamList } from "#shared/types/navigation"
 
 const Drawer = createDrawerNavigator<SettingsDrawerParamList>()
 

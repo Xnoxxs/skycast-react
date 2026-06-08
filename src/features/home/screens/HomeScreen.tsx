@@ -1,19 +1,29 @@
+import { useCallback, useState } from "react"
 import { ActivityIndicator, FlatList, StyleSheet, Text } from "react-native"
 
-import { colors, spacing, typography } from "#design-system"
+import { Button, colors, spacing, typography } from "#design-system"
 
 import CurrentWeather from "#features/home/components/CurrentWeather"
 import Forecast from "#features/home/components/Forecast"
 import RecentSearchesList from "#features/home/components/RecentSearchesList"
 import { useRecentSearches } from "#features/weather/hooks/useRecentSearches"
-import { useWeatherSearch } from "#features/weather/hooks/useWeatherSearch"
+import {
+  CURRENT_LOCATION_NAME,
+  useWeatherSearch,
+} from "#features/weather/hooks/useWeatherSearch"
 import CitySearchBar from "#shared/ui/CitySearchBar"
-import { useCallback, useState } from "react"
 
 const HomeScreen: React.FC = () => {
   // useWeatherSearch manages city input, location state, loading, errors, and persistence
-  const { cityInput, setCityInput, location, isLoading, error, searchCity } =
-    useWeatherSearch()
+  const {
+    cityInput,
+    setCityInput,
+    location,
+    isLoading,
+    error,
+    searchCity,
+    searchCurrentLocation,
+  } = useWeatherSearch()
 
   // useRecentSearches manages the persisted list of recently searched cities
   const { recentSearches, addRecentSearch } = useRecentSearches()
@@ -46,13 +56,25 @@ const HomeScreen: React.FC = () => {
     [searchCity, setCityInput, addRecentSearch],
   )
 
+  // --- Use current location ---
+  const handleUseCurrentLocation = useCallback(async () => {
+    const success = await searchCurrentLocation()
+    if (success) {
+      await addRecentSearch(CURRENT_LOCATION_NAME)
+    }
+  }, [searchCurrentLocation, addRecentSearch])
+
   // --- Pull-to-refresh ---
   // Re-fetches weather for the currently displayed city when the user pulls down.
   const handleRefresh = useCallback(async () => {
     setIsRefreshing(true)
-    await searchCity(location.name)
+    if (location.name === CURRENT_LOCATION_NAME) {
+      await searchCurrentLocation()
+    } else {
+      await searchCity(location.name)
+    }
     setIsRefreshing(false)
-  }, [searchCity, location.name])
+  }, [searchCity, searchCurrentLocation, location.name])
 
   // --- ListHeaderComponent ---
   // Everything above the recent searches list: search bar, weather cards.
@@ -64,6 +86,12 @@ const HomeScreen: React.FC = () => {
         value={cityInput}
         onChangeText={setCityInput}
         onSearch={handleSearch}
+      />
+
+      <Button
+        title="Use current location"
+        onPress={handleUseCurrentLocation}
+        disabled={isLoading}
       />
 
       {/* Loading indicator — shown while restoring last city or geocoding a new one */}
@@ -119,7 +147,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background.screen, // was: "#fff"
     alignItems: "center",
     justifyContent: "center",
-    paddingVertical: spacing.xl,               // was: 24
+    paddingVertical: spacing.xl, // was: 24
   },
   loading: {
     marginVertical: spacing.xl,

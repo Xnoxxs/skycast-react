@@ -2,7 +2,14 @@ import { type NativeStackScreenProps } from "@react-navigation/native-stack"
 
 import { ActivityIndicator, StyleSheet } from "react-native"
 
-import { Button, ScreenContainer, Typography, colors, spacing, typography } from "#design-system"
+import {
+  Button,
+  ScreenContainer,
+  Typography,
+  colors,
+  spacing,
+  typography,
+} from "#design-system"
 import { useFavorites } from "#features/favorites/hooks/useFavorites"
 import { type FavoritesStackParamList } from "#shared/types/navigation"
 

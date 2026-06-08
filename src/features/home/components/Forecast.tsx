@@ -3,9 +3,11 @@ import { ScrollView, StyleSheet, Text, View } from "react-native"
 
 import { colors, spacing, typography } from "#design-system"
 
-import { type ForecastDay, fetchForecast } from "#features/home/services/weatherApi"
+import {
+  type ForecastDay,
+  fetchForecast,
+} from "#features/home/services/weatherApi"
 import Card from "#shared/ui/Card"
-
 
 const Forecast: React.FC<{
   location: { name: string; latitude: number; longitude: number }
@@ -46,12 +48,12 @@ const Forecast: React.FC<{
 export default Forecast
 
 const styles = StyleSheet.create({
-  temperatureMax: typography.temperatureMax,                              // was: { fontSize: 18 }
+  temperatureMax: typography.temperatureMax, // was: { fontSize: 18 }
   temperatureMin: {
-    ...typography.temperatureMin,                                         // was: { fontSize: 14 }
-    color: colors.text.muted,                                             // was: "#888"
+    ...typography.temperatureMin, // was: { fontSize: 14 }
+    color: colors.text.muted, // was: "#888"
   },
-  condition: typography.condition,                                        // was: { fontWeight: "bold" }
+  condition: typography.condition, // was: { fontWeight: "bold" }
   days: { flexGrow: 0, flexDirection: "row" },
-  day: { flex: 1, alignItems: "center", marginHorizontal: spacing.lg },  // was: 16
+  day: { flex: 1, alignItems: "center", marginHorizontal: spacing.lg }, // was: 16
 })

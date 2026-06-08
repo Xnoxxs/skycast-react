@@ -1,18 +1,18 @@
 // Geocoding service — converts a city name into latitude/longitude coordinates.
 // Uses the Open-Meteo Geocoding API (free, no API key required).
 
-import type { SearchedCity } from "#features/weather/types"
+import { type SearchedCity } from "#features/weather/types"
 
 const GEOCODING_URL = "https://geocoding-api.open-meteo.com/v1/search"
 
 // Shape of the response we care about from the Open-Meteo geocoding endpoint.
 type GeocodingResponse = {
-  results?: {
+  results?: Array<{
     name: string
     latitude: number
     longitude: number
     country: string
-  }[]
+  }>
 }
 
 // Converts a city name into a SearchedCity with coordinates.

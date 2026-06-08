@@ -23,7 +23,9 @@ const Typography: React.FC<Props> = ({
   children,
 }) => {
   return (
-    <Text style={[styles[variant], color && { color: colors.text[color] }, style]}>
+    <Text
+      style={[styles[variant], color && { color: colors.text[color] }, style]}
+    >
       {children}
     </Text>
   )

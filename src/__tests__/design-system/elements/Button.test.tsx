@@ -13,14 +13,14 @@ import Button from "#design-system/elements/Button"
 // ─── Smoke test ───────────────────────────────────────────────────────────────
 // The simplest possible test: if render() throws, the test fails.
 // This tells us the component mounts without crashing.
-it("renders without crashing", () => {
-  render(<Button title="Search" onPress={() => {}} />)
+test("renders without crashing", () => {
+  render(<Button title="Search" onPress={jest.fn()} />)
 })
 
 // ─── Unit test: title renders ─────────────────────────────────────────────────
 // Verifies that the title prop appears as visible text in the rendered output.
-it("displays the title text", () => {
-  render(<Button title="Search" onPress={() => {}} />)
+test("displays the title text", () => {
+  render(<Button title="Search" onPress={jest.fn()} />)
 
   // getByText throws if the text is not found — so this assertion is implicit
   expect(screen.getByText("Search")).toBeOnTheScreen()
@@ -30,7 +30,7 @@ it("displays the title text", () => {
 // jest.fn() creates a mock function that records how many times it was called
 // and with which arguments — without needing a real implementation.
 // userEvent.press() simulates a real tap, going through the full event pipeline.
-it("calls onPress when pressed", async () => {
+test("calls onPress when pressed", async () => {
   const onPressMock = jest.fn() // ← jest.fn() creates the mock
 
   render(<Button title="Search" onPress={onPressMock} />)

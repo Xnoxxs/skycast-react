@@ -8,7 +8,7 @@ import { Text } from "react-native"
 
 import Card from "#shared/ui/Card"
 
-it("renders without crashing and displays its children", () => {
+test("renders without crashing and displays its children", () => {
   render(
     <Card>
       <Text>Hello from Card</Text>

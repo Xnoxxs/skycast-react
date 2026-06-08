@@ -4,7 +4,7 @@
 
 import AsyncStorage from "@react-native-async-storage/async-storage"
 
-import type { Favorite } from "#features/favorites/types"
+import { type Favorite } from "#features/favorites/types"
 
 // The key used to store the favorites array in AsyncStorage.
 const FAVORITES_KEY = "favorites"
@@ -40,8 +40,11 @@ export async function saveFavorites(favorites: Favorite[]): Promise<void> {
   }
 }
 
-// Removes all saved favorites from AsyncStorage.
-// Useful for a "clear all" action or testing.
+/**
+ * Removes all saved favorites from AsyncStorage.
+ * Useful for a "clear all" action or testing.
+ * @public - part of the storage API surface, kept intentionally for consumers/tests.
+ */
 export async function clearFavorites(): Promise<void> {
   try {
     await AsyncStorage.removeItem(FAVORITES_KEY)

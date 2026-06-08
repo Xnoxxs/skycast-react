@@ -11,8 +11,8 @@
 //   - userEvent.press() to simulate a button tap
 //   - jest.fn() to capture and assert on callback calls
 
-import { useState } from "react"
 import { render, screen, userEvent } from "@testing-library/react-native"
+import { useState } from "react"
 
 import CitySearchBar from "#shared/ui/CitySearchBar"
 
@@ -25,7 +25,7 @@ function Wrapper({ onSearch }: { onSearch: jest.Mock }) {
   )
 }
 
-it("calls onSearch with the typed city name when Search is pressed", async () => {
+test("calls onSearch with the typed city name when Search is pressed", async () => {
   const mockSearch = jest.fn()
 
   render(<Wrapper onSearch={mockSearch} />)

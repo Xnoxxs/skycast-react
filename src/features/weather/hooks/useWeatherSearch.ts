@@ -6,15 +6,36 @@
 //   3. Save on change — every successful search persists the city name to storage
 //   4. Error handling — city not found and network failures set a user-friendly error message
 
-import { useCallback, useEffect, useState } from "react"
-
-import { BARCELONA } from "#shared/constants/locations"
+import {
+  type Dispatch,
+  type SetStateAction,
+  useCallback,
+  useEffect,
+  useState,
+} from "react"
 
 import { geocodeCity } from "#features/weather/services/geocodingApi"
-import { getLastCity, setLastCity } from "#features/weather/storage/weatherPreferences"
-import type { SearchedCity } from "#features/weather/types"
+import { getCurrentCoordinates } from "#features/weather/services/locationService"
+import {
+  getLastCity,
+  setLastCity,
+} from "#features/weather/storage/weatherPreferences"
+import { type SearchedCity } from "#features/weather/types"
+import { BARCELONA } from "#shared/constants/locations"
 
-export function useWeatherSearch() {
+export const CURRENT_LOCATION_NAME = "Current location"
+
+type UseWeatherSearchResult = {
+  cityInput: string
+  setCityInput: Dispatch<SetStateAction<string>>
+  location: SearchedCity
+  isLoading: boolean
+  error: string | null
+  searchCity: (name: string) => Promise<boolean>
+  searchCurrentLocation: () => Promise<boolean>
+}
+
+export function useWeatherSearch(): UseWeatherSearchResult {
   // The text the user is currently typing in the search field
   const [cityInput, setCityInput] = useState("")
 
@@ -43,6 +64,22 @@ export function useWeatherSearch() {
 
       // Pre-fill the input field with the previously searched city
       setCityInput(saved)
+
+      if (saved === CURRENT_LOCATION_NAME) {
+        const result = await getCurrentCoordinates()
+
+        if (result.success) {
+          setLocation({
+            name: CURRENT_LOCATION_NAME,
+            latitude: result.coordinates.latitude,
+            longitude: result.coordinates.longitude,
+          })
+        }
+        // If GPS fails, the Barcelona default stays in place
+
+        setIsLoading(false)
+        return
+      }
 
       // Geocode the saved city to get up-to-date coordinates
       const result = await geocodeCity(saved)
@@ -82,10 +119,39 @@ export function useWeatherSearch() {
       setIsLoading(false)
       return true
     } else {
-      setError(`City "${trimmed}" not found. Please check the name and try again.`)
+      setError(
+        `City "${trimmed}" not found. Please check the name and try again.`,
+      )
       setIsLoading(false)
       return false
     }
+  }, [])
+
+  // --- Use device GPS ---
+  // Reads the device's current coordinates and displays weather for that position.
+  const searchCurrentLocation = useCallback(async (): Promise<boolean> => {
+    setIsLoading(true)
+    setError(null)
+
+    const result = await getCurrentCoordinates()
+
+    if (!result.success) {
+      setError(result.error)
+      setIsLoading(false)
+      return false
+    }
+
+    const { latitude, longitude } = result.coordinates
+
+    setLocation({
+      name: CURRENT_LOCATION_NAME,
+      latitude,
+      longitude,
+    })
+    setCityInput(CURRENT_LOCATION_NAME)
+    await setLastCity(CURRENT_LOCATION_NAME)
+    setIsLoading(false)
+    return true
   }, [])
 
   return {
@@ -95,5 +161,6 @@ export function useWeatherSearch() {
     isLoading,
     error,
     searchCity,
+    searchCurrentLocation,
   }
 }
