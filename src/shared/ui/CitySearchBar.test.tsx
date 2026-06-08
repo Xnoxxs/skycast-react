@@ -14,7 +14,7 @@
 import { render, screen, userEvent } from "@testing-library/react-native"
 import { useState } from "react"
 
-import CitySearchBar from "#shared/ui/CitySearchBar"
+import CitySearchBar from "./CitySearchBar"
 
 // Wrapper component that owns the controlled state.
 // This mirrors how HomeScreen uses CitySearchBar in the real app.

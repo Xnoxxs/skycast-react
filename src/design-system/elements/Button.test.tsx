@@ -8,13 +8,14 @@
 
 import { render, screen, userEvent } from "@testing-library/react-native"
 
-import Button from "#design-system/elements/Button"
+import Button from "./Button"
 
 // ─── Smoke test ───────────────────────────────────────────────────────────────
 // The simplest possible test: if render() throws, the test fails.
 // This tells us the component mounts without crashing.
 test("renders without crashing", () => {
   render(<Button title="Search" onPress={jest.fn()} />)
+  expect(screen.getByText("Search")).toBeOnTheScreen()
 })
 
 // ─── Unit test: title renders ─────────────────────────────────────────────────

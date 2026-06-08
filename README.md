@@ -41,19 +41,19 @@ npm run lint
 
 ## Course Requirements Mapping
 
-| # | Requirement | Where it is implemented |
-|---|-------------|-------------------------|
-| 1 | All application code in `src/` | Entry at `src/index.ts`; all screens, hooks, services, and tests under `src/` |
-| 2 | Routing separated from logic and rendering | Navigators in `src/app/navigation/` and `src/features/*/navigation/`; screens in `src/features/*/screens/`; types in `src/shared/types/navigation.ts` |
-| 3 | Feature-based organization | `src/features/home`, `weather`, `favorites`, `settings` |
-| 4 | Modlets or similar isolation pattern | Storage gateways (`favoritesStorage.ts`, `weatherPreferences.ts`), `locationService.ts`, and feature hooks as module APIs |
-| 5 | Shared code via module boundaries | `#app/*`, `#features/*`, `#shared/*`, `#design-system` path aliases in `tsconfig.json` |
-| 6 | Design system present and actively used | `src/design-system/` — tokens and elements used across screens and shared UI |
-| 7 | User input | `src/shared/ui/CitySearchBar.tsx` — controlled `TextInput` on `HomeScreen` |
-| 8 | Persistence | `@react-native-async-storage/async-storage` via `favoritesStorage.ts` and `weatherPreferences.ts` |
-| 9 | Device feature | `expo-location` in `src/features/weather/services/locationService.ts`; "Use current location" on `HomeScreen` |
-| 10 | FlatList used meaningfully | `HomeScreen`, `RecentSearchesList`, `FavoritesScreen` |
-| 11 | Tests (smoke, unit, mock + user action, integration) | `src/__tests__/design-system/elements/Button.test.tsx`, `src/__tests__/shared/ui/Card.test.tsx`, `src/__tests__/shared/ui/CitySearchBar.test.tsx` |
-| 12 | CI/CD runs lint and tests | `.github/workflows/ci.yml` |
-| 13 | Expo SDK 56 installed | `expo@^56.0.0` in `package.json` |
-| 14 | Expo Doctor passes | Verified with `npx expo-doctor` (18/18 checks) |
+| #   | Requirement                                          | Where it is implemented                                                                                                                                  |
+| --- | ---------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | All application code in `src/`                       | Entry at `src/index.ts`; all screens, hooks, services, and tests under `src/`                                                                            |
+| 2   | Routing separated from logic and rendering           | Navigators in `src/app/navigation/` and `src/features/*/navigation/`; screens in `src/features/*/screens/`; types in `src/shared/types/navigation.ts`    |
+| 3   | Feature-based organization                           | `src/features/home`, `weather`, `favorites`, `settings`                                                                                                  |
+| 4   | Modlets or similar isolation pattern                 | Storage gateways (`favoritesStorage.ts`, `weatherPreferences.ts`), `locationService.ts`, and feature hooks as module APIs                                |
+| 5   | Shared code via module boundaries                    | `#app/*`, `#features/*`, `#shared/*`, `#design-system` path aliases in `tsconfig.json`                                                                   |
+| 6   | Design system present and actively used              | `src/design-system/` — tokens and elements used across screens and shared UI                                                                             |
+| 7   | User input                                           | `src/shared/ui/CitySearchBar.tsx` — controlled `TextInput` on `HomeScreen`                                                                               |
+| 8   | Persistence                                          | `@react-native-async-storage/async-storage` via `favoritesStorage.ts` and `weatherPreferences.ts`                                                        |
+| 9   | Device feature                                       | `expo-location` in `src/features/weather/services/locationService.ts`; "Use current location" on `HomeScreen`                                            |
+| 10  | FlatList used meaningfully                           | `HomeScreen`, `RecentSearchesList`, `FavoritesScreen`                                                                                                    |
+| 11  | Tests (smoke, unit, mock + user action, integration) | `src/design-system/elements/Button.test.tsx`, `Typography.test.tsx`, `ScreenContainer.test.tsx`, `src/shared/ui/Card.test.tsx`, `CitySearchBar.test.tsx` |
+| 12  | CI/CD runs lint and tests                            | `.github/workflows/ci.yml`                                                                                                                               |
+| 13  | Expo SDK 56 installed                                | `expo@^56.0.0` in `package.json`                                                                                                                         |
+| 14  | Expo Doctor passes                                   | Verified with `npx expo-doctor` (18/18 checks)                                                                                                           |
